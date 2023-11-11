@@ -14,18 +14,21 @@ public class SearchPage extends BasePage {
 
     public void selectproduct(String product) throws InterruptedException {
         Thread.sleep(1000);
-        this.sendText(product, searchProduct);
-        this.sendKey(Keys.ENTER, searchProduct);
+        this.click(searchProduct);
+        this.sendText(product,searchProduct );
+
+
     }
 
-    public void clickSearch() throws InterruptedException {
+    public void clickSearch () throws InterruptedException {
         Thread.sleep(1000);
         this.click(searchBtn);
-    }
+        }
 
-    public String addedProduct() throws InterruptedException {
-        Thread.sleep(1000);
-        System.out.println("RESULTADO DE LA BUSQUEDA: " + this.getText(addProduct));
-        return this.getText(addProduct);
+        public String addedProduct () throws InterruptedException {
+            Thread.sleep(1000);
+            this.click(addProduct);
+            return this.getText(addProduct);
+
+        }
     }
-}

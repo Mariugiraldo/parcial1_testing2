@@ -40,9 +40,10 @@ public class SearchTest {
 
         searchPage.selectproduct("Iphone");
         searchPage.clickSearch();
+        searchPage.addedProduct();
         test.log(Status.PASS, "Completar Busqueda de producto Iphone");
 
-        Assertions.assertEquals(searchPage.addedProduct(), " Success: You have added iPhone to your shopping cart!");
+        Assertions.assertEquals(" Success: You have added iPhone to your shopping cart!", searchPage.addedProduct());
         test.log(Status.PASS, "Validación de producto Iphone, Exitosa");
     }
 

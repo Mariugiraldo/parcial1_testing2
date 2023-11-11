@@ -40,27 +40,25 @@ public class RegisterTest {
         RegisterPage registerPage = new RegisterPage(driver, wait);
 
         try {
-            registerPage.clickRegister();
-            Assertions.assertEquals(registerPage.getRegister(), "Crear cuenta");
-            test.log(Status.PASS, "Cuenta registrada");
-
             registerPage.clickMyAccount();
+            registerPage.clickRegister();
+            Assertions.assertEquals("Account", registerPage.getRegister());
+            test.log(Status.PASS, "Ingreso a pantalla de registro");
+
             registerPage.writeName("Maria Eugenia");
             registerPage.writeLastName("Giraldo Herrera");
-            registerPage.writeMail("mariugiraldo40@gmail.com");
+            registerPage.writeMail("mariugiraldo"+Math.random()+"@gmail.com");
             registerPage.writeTelephone("324567");
             registerPage.writePassword("29M@yo");
             registerPage.writePasswordConfirm("29M@yo");
-            registerPage.MarkSubscription("0");
-            registerPage.MarkprivacePolicy("1");
+            registerPage.MarkSubscription();
+            registerPage.MarkprivacePolicy();
 
-            test.log(Status.PASS, "los datos se han registrado correctamente");
-
-            registerPage.clickCheckIn();
+            registerPage.clickRegisterButton();
             test.log(Status.PASS, "registro culminado");
 
-            Assertions.assertEquals(registerPage.successfulMessage(), "¡Cuenta registrada con éxito!");
-            test.log(Status.PASS, "Valido que el registro se haya hecho de forma exitosa");
+            Assertions.assertEquals("Congratulations! Your new account has been successfully created!", registerPage.successfulMessage());
+            test.log(Status.PASS, "los datos se han registrado correctamente");
 
         } catch (AssertionError error) {
             test.log(Status.FAIL, "Fallo la validación: " + error.getLocalizedMessage());
@@ -73,28 +71,28 @@ public class RegisterTest {
     @Tag("ALL")
     public void repeatedEmailTest() throws InterruptedException {
         ExtentTest test = extent.createTest("Prueba de Crear una cuenta con un mail repetido");
-        test.log(Status.INFO, "Comienza el Test");
+        test.log(Status.PASS, "Comienza el Test");
         RegisterPage registerPage = new RegisterPage(driver, wait);
 
         try {
-            registerPage.clickRegister();
-            Assertions.assertEquals(registerPage.getRegister(), "Crear cuenta");
-            test.log(Status.PASS, "Ingreso a la página de Registro");
-
             registerPage.clickMyAccount();
+            registerPage.clickRegister();
+            Assertions.assertEquals("Crear cuenta", registerPage.getRegister());
+            test.log(Status.INFO, "Ingreso a la página de Registro");
+
             registerPage.writeName("Maria Eugenia");
             registerPage.writeLastName("Giraldo Herrera");
             registerPage.writeMail("mariugiraldo40@gmail.com");
             registerPage.writeTelephone("324567");
             registerPage.writePassword("29M@yo");
             registerPage.writePasswordConfirm("29M@yo");
-            registerPage.MarkSubscription("0");
-            registerPage.MarkprivacePolicy("1");
+            registerPage.MarkSubscription();
+            registerPage.MarkprivacePolicy();
 
-            registerPage.clickCheckIn();
+            registerPage.clickRegisterButton();
             test.log(Status.PASS, "Completo el registro");
 
-            Assertions.assertEquals(registerPage.repeatedEmailMessage(), "Este email ya está registrado");
+            Assertions.assertEquals("Este email ya está registrado", registerPage.repeatedEmailMessage());
             test.log(Status.PASS, "Valido no poder registrarme con un correo repetido");
 
         } catch (AssertionError error) {

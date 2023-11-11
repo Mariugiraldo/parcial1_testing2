@@ -4,18 +4,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegisterPage extends BasePage {
 
-    private By myAccountBtn = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/ul/li[1]/");
+    private By myAccountBtn = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/a");
+    private By register = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/ul/li[1]/a");
     private By name = By.id("input-firstname");
     private By lastName = By.id("input-lastname");
     private By eMail = By.id("input-email");
     private By telephone = By.id("input-telephone");
     private By password = By.id("input-password");
     private By passwordConfirm = By.id("input-confirm");
-    private By subscribe = By.name("newsletter");
-    private By privacePolicy = By.name("agree");
-    private By registerAccount = By.xpath("//*[@id=\"content\"]/form/div/div/input[2]");
+    private By subscriptionNoCheckbox = By.xpath("//*[@id=\"content\"]/form/fieldset[3]/div/div/label[2]/input");
+    private By privacePolicy = By.xpath("//*[@id=\"content\"]/form/div/div/input[1]");
+    private By registerButton = By.xpath("//*[@id=\"content\"]/form/div/div/input[2]");
     private By accountCreated = By.xpath("//*[@id=\"content\"]/h1");
-    private By message = By.xpath("//*[@id=\"content\"]/p[1]");
+    private By registerMessage = By.xpath("//*[@id=\"content\"]/p[1]");
     private By repeatedEmail = By.xpath("//*[@id=\"account-register\"]/div[1]");
 
 
@@ -24,7 +25,11 @@ public class RegisterPage extends BasePage {
     }
 
     public void clickMyAccount() throws InterruptedException {
-        click(myAccountBtn);
+            click(myAccountBtn);
+    }
+
+    public void clickRegister() throws InterruptedException {
+        click(register);
     }
 
     public void writeName(String name1) throws InterruptedException {
@@ -51,16 +56,16 @@ public class RegisterPage extends BasePage {
         sendText(clau, passwordConfirm);
     }
 
-    public void MarkSubscription(String subscription) throws InterruptedException {
-        sendText(subscription, subscribe);
+    public void MarkSubscription() throws InterruptedException {
+        click(subscriptionNoCheckbox);
     }
 
-    public void MarkprivacePolicy(String subscription) throws InterruptedException {
-        sendText(subscription, subscribe);
+    public void MarkprivacePolicy() throws InterruptedException {
+        click(privacePolicy);
     }
 
-    public void clickCheckIn() throws InterruptedException {
-        click(registerAccount);
+    public void clickRegisterButton() throws InterruptedException {
+        click(registerButton);
     }
 
     public String getRegister() throws InterruptedException {
@@ -69,8 +74,8 @@ public class RegisterPage extends BasePage {
     }
 
     public String successfulMessage() throws InterruptedException {
-        System.out.println("Se creo la cuenta: " + getText(message));
-        return this.getText(message);
+        System.out.println("Se creo la cuenta: " + getText(registerMessage));
+        return this.getText(registerMessage);
     }
 
     public String repeatedEmailMessage() throws InterruptedException {
