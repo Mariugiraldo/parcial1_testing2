@@ -2,93 +2,81 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class RegisterPage extends BasePage{
-    private By titulo = By.xpath("//h1[normalize-space()='Crear cuenta']");
-    private By nombre = By.id("firstName");
-    private By apellido = By.id("lastName");
-    private By email = By.id("email");
-    private By contrasena = By.id("password");
-    private By recontrasena = By.id("repassword");
-    private By registrarseBtn = By.className("btn-primario");
-    private By exito = By.className("txt-gracias");
-    private By confirmarMail = By.className("txt-exito");
-    private By nombreObligatorio = By.xpath("(//small[contains(text(),'Este campo es obligatorio')])[1]");
-    private By apellidoObligatorio = By.xpath("(//small[contains(text(),'Este campo es obligatorio')])[2]");
-    private By mailObligatorio = By.xpath("(//small[contains(text(),'Este campo es obligatorio')])[3]");
-    private By contrasenaObligatorio = By.xpath("(//small[contains(text(),'Este campo es obligatorio')])[4]");
-    private By recontrasenaObligatorio = By.xpath("(//small[contains(text(),'Este campo es obligatorio')])[5]");
-    private By mailRepetido = By.className("form-feedback");
+public class RegisterPage extends BasePage {
+
+    private By myAccountBtn = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/ul/li[1]/");
+    private By name = By.id("input-firstname");
+    private By lastName = By.id("input-lastname");
+    private By eMail = By.id("input-email");
+    private By telephone = By.id("input-telephone");
+    private By password = By.id("input-password");
+    private By passwordConfirm = By.id("input-confirm");
+    private By subscribe = By.name("newsletter");
+    private By privacePolicy = By.name("agree");
+    private By registerAccount = By.xpath("//*[@id=\"content\"]/form/div/div/input[2]");
+    private By accountCreated = By.xpath("//*[@id=\"content\"]/h1");
+    private By message = By.xpath("//*[@id=\"content\"]/p[1]");
+    private By repeatedEmail = By.xpath("//*[@id=\"account-register\"]/div[1]");
+
 
     public RegisterPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 
-    public String obtenerTituloRegistro() throws InterruptedException {
-        System.out.println("Me encuentro en la página de Registro: " + getText(titulo));
-        return this.getText(titulo);
+    public void clicMyAccount() throws InterruptedException {
+        click(myAccountBtn);
     }
 
-    public void escribirNombre(String name) throws InterruptedException {
-        sendText(name, nombre);
+    public void writeName(String name1) throws InterruptedException {
+        sendText(name1, name);
     }
 
-    public void escribirApellido(String lastName) throws InterruptedException {
-        sendText(lastName, apellido);
+    public void writeLastName(String lastName1) throws InterruptedException {
+        sendText(lastName1, lastName);
     }
 
-    public void escribirMail(String mail) throws InterruptedException {
-        sendText(mail, email);
+    public void writeMail(String mail) throws InterruptedException {
+        sendText(mail, eMail);
     }
 
-    public void escribirContraseña(String clave) throws InterruptedException {
-        sendText(clave, contrasena);
+    public void writeTelephone(String phone) throws InterruptedException {
+        sendText(phone, telephone);
     }
 
-    public void escribirConfirmarContraseña(String clave) throws InterruptedException {
-        sendText(clave, recontrasena);
+    public void writePassword(String clue) throws InterruptedException {
+        sendText(clue, password);
     }
 
-    public void clickRegistrarse() throws InterruptedException {
-        click(registrarseBtn);
+    public void writePasswordConfirm(String clau) throws InterruptedException {
+        sendText(clau, passwordConfirm);
     }
 
-    public String obtenerMensajeExito() throws InterruptedException {
-        System.out.println("Se creo la cuenta: " + getText(exito));
-        return this.getText(exito);
+    public void MarkSubscription(String subscription) throws InterruptedException {
+        sendText(subscription, subscribe);
     }
 
-    public String obtenerMensajeConfirmarMail() throws InterruptedException {
-        System.out.println("Valido el mensaje de confirmar mail: " + getText(confirmarMail));
-        return this.getText(confirmarMail);
+    public void MarkprivacePolicy(String subscription) throws InterruptedException {
+        sendText(subscription, subscribe);
     }
 
-    public String obtenerMensajeNombreObligatorio() throws InterruptedException {
-        System.out.println("Verificar Nombre: " + getText(nombreObligatorio));
-        return this.getText(nombreObligatorio);
+    public void clickCheckIn() throws InterruptedException {
+        click(registerAccount);
     }
 
-    public String obtenerMensajeApellidoObligatorio() throws InterruptedException {
-        System.out.println("Verificar Apellido: " + getText(apellidoObligatorio));
-        return this.getText(apellidoObligatorio);
+    public String getRegister() throws InterruptedException {
+        System.out.println("La cuenta ha sido registrada: " + getText(accountCreated));
+        return this.getText(accountCreated);
     }
 
-    public String obtenerMensajeCorreoObligatorio() throws InterruptedException {
-        System.out.println("Verificar Correo: " + getText(mailObligatorio));
-        return this.getText(mailObligatorio);
+    public String successfulMessage() throws InterruptedException {
+        System.out.println("Se creo la cuenta: " + getText(message));
+        return this.getText(message);
     }
 
-    public String obtenerMensajeContraseñaObligatorio() throws InterruptedException {
-        System.out.println("Verificar Contraseña: " + getText(contrasenaObligatorio));
-        return this.getText(contrasenaObligatorio);
+    public String repeatedEmailMessage() throws InterruptedException {
+        System.out.println("Verificar el mensaje de correo repetido: " + getText(repeatedEmail));
+        return this.getText(repeatedEmail);
     }
 
-    public String obtenerMensajeConfirmarContraseñaObligatorio() throws InterruptedException {
-        System.out.println("Verificar Nombre: " + getText(recontrasenaObligatorio));
-        return this.getText(recontrasenaObligatorio);
-    }
 
-    public String obtenerMensajeCorreoRepetido() throws InterruptedException {
-        System.out.println("Verificar el mensaje de correo repetido: " + getText(mailRepetido));
-        return this.getText(mailRepetido);
-    }
 }

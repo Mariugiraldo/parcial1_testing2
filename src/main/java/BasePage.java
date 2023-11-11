@@ -4,15 +4,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
 public class BasePage {
-    protected By logoImg = By.className("logo-img");
-    protected By loginButtom = By.xpath("//a[text()='Iniciar sesión']");
-    protected By registerButtom = By.xpath("//a[text()='Crear cuenta']");
-    protected By nombreUsuario = By.className("txt-nombre");
+
+    protected By registerAccount = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/ul/li[1]/a");
+
     public static WebDriver driver;
     public static WebDriverWait wait;
+
 
     public BasePage(WebDriver driver, WebDriverWait wait) {
         BasePage.driver = driver;
@@ -32,19 +31,18 @@ public class BasePage {
     }
 
     protected WebElement elementFind(By locator) throws InterruptedException {
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        Thread.sleep(1000);
         return driver.findElement(locator);
     }
 
-    protected void sendText(String imputText, By locator) throws InterruptedException {
+    protected void sendText(String inputText, By locator) throws InterruptedException {
         this.elementFind(locator).clear();
-        this.elementFind(locator).sendKeys(imputText);
+        this.elementFind(locator).sendKeys(inputText);
     }
 
-    protected void sendKey(CharSequence key, By locator) throws InterruptedException {
+    /*protected void sendKey(CharSequence key, By locator) throws InterruptedException {
         this.elementFind(locator).sendKeys(key);
-    }
-
+    }*/
     protected void click(By locator) throws InterruptedException {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         this.elementFind(locator).click();
@@ -54,20 +52,10 @@ public class BasePage {
         return this.elementFind(locator).getText();
     }
 
-    public void clickLogin() throws InterruptedException {
-        this.click(loginButtom);
+    public void clickRegister() throws InterruptedException {
+        this.click(registerAccount);
     }
 
-    public void clickRegistrar() throws InterruptedException {
-        this.click(registerButtom);
-    }
-
-    public String obtenerUsuario() throws InterruptedException {
-        System.out.println("EL USUARIO ES: " + this.getText(nombreUsuario));
-        return this.getText(nombreUsuario);
-    }
-
-    public void clickLogo() throws InterruptedException {
-        this.click(logoImg);
-    }
 }
+
+

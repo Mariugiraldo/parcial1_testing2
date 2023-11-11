@@ -28,38 +28,40 @@ public class RegisterTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.setUp();
-        registerPage.getUrl("http://testing.ctd.academy/");
+        registerPage.getUrl("https://opencart.abstracta.us/index.php?route=product/product&path=57&product_id=49");
     }
 
     @Test
     @Tag("Registro")
     @Tag("ALL")
-    public void RegistroExitosoTest() throws InterruptedException {
+    public void SuccessfulRegistrationTest() throws InterruptedException {
         ExtentTest test = extent.createTest("Prueba de Crear Cuenta Exitosa");
         test.log(Status.INFO, "Comienza el Test");
         RegisterPage registerPage = new RegisterPage(driver, wait);
 
         try {
-            registerPage.clickRegistrar();
-            Assertions.assertEquals(registerPage.obtenerTituloRegistro(), "Crear cuenta");
-            test.log(Status.PASS, "Ingreso a la página de Registro");
+            registerPage.clickRegister();
+            Assertions.assertEquals(registerPage.getRegister(), "Crear cuenta");
+            test.log(Status.PASS, "Cuenta registrada");
 
-            registerPage.escribirNombre("Sergio");
-            registerPage.escribirApellido("Pace");
-            registerPage.escribirMail("spaceprueba_2@gmail.com");
-            registerPage.escribirContraseña("123456");
-            registerPage.escribirConfirmarContraseña("123456");
-            test.log(Status.PASS, "Completo los datos de registro de forma correcta");
+            registerPage.clicMyAccount();
+            registerPage.writeName("Maria Eugenia");
+            registerPage.writeLastName("Giraldo Herrera");
+            registerPage.writeMail("mariugiraldo40@gmail.com");
+            registerPage.writeTelephone("324567");
+            registerPage.writePassword("29M@yo");
+            registerPage.writePasswordConfirm("29M@yo");
+            registerPage.MarkSubscription("0");
+            registerPage.MarkprivacePolicy("1");
 
-            registerPage.clickRegistrarse();
-            test.log(Status.PASS, "Completo el registro");
+            test.log(Status.PASS, "los datos se han registrado correctamente");
 
-            Assertions.assertEquals(registerPage.obtenerMensajeExito(), "¡Cuenta registrada con éxito!");
-            Assertions.assertEquals(registerPage.obtenerMensajeConfirmarMail(), "Te enviamos un email para confirmar tu cuenta");
+            registerPage.clickCheckIn();
+            test.log(Status.PASS, "registro culminado");
+
+            Assertions.assertEquals(registerPage.successfulMessage(), "¡Cuenta registrada con éxito!");
             test.log(Status.PASS, "Valido que el registro se haya hecho de forma exitosa");
 
-            registerPage.clickLogo();
-            test.log(Status.PASS, "Regreso a la página inicial");
         } catch (AssertionError error) {
             test.log(Status.FAIL, "Fallo la validación: " + error.getLocalizedMessage());
             throw error;
@@ -69,62 +71,32 @@ public class RegisterTest {
     @Test
     @Tag("Registro")
     @Tag("ALL")
-    public void RegistroFallidoTodosTest() throws InterruptedException {
-        ExtentTest test = extent.createTest("Prueba de registro fallido - Todos los campos vacios");
-        test.log(Status.INFO, "Comienza el Test");
-        RegisterPage registerPage = new RegisterPage(driver, wait);
-
-        try {
-            registerPage.clickRegistrar();
-            Assertions.assertEquals(registerPage.obtenerTituloRegistro(), "Crear cuenta");
-            test.log(Status.PASS, "Ingreso a la página de Registro");
-
-            registerPage.clickRegistrarse();
-            test.log(Status.PASS, "Presiono el boton registrarse sin completar ningun campo");
-
-            Assertions.assertEquals(registerPage.obtenerMensajeNombreObligatorio(), "Este campo es obligatorio");
-            Assertions.assertEquals(registerPage.obtenerMensajeApellidoObligatorio(), "Este campo es obligatorio");
-            Assertions.assertEquals(registerPage.obtenerMensajeCorreoObligatorio(), "Este campo es obligatorio");
-            Assertions.assertEquals(registerPage.obtenerMensajeContraseñaObligatorio(), "Este campo es obligatorio");
-            Assertions.assertEquals(registerPage.obtenerMensajeConfirmarContraseñaObligatorio(), "Este campo es obligatorio");
-            test.log(Status.PASS, "Valido que en todos los campos se vea el mensaje de campo obligatorio");
-
-            registerPage.clickLogo();
-            test.log(Status.PASS, "Regreso a la página inicial");
-        } catch (AssertionError error) {
-            test.log(Status.FAIL, "Fallo la validación: " + error.getLocalizedMessage());
-            throw error;
-        }
-    }
-
-    @Test
-    @Tag("Registro")
-    @Tag("ALL")
-    public void RegistroMailRepetidoTest() throws InterruptedException {
+    public void repeatedEmailTest() throws InterruptedException {
         ExtentTest test = extent.createTest("Prueba de Crear una cuenta con un mail repetido");
         test.log(Status.INFO, "Comienza el Test");
         RegisterPage registerPage = new RegisterPage(driver, wait);
 
         try {
-            registerPage.clickRegistrar();
-            Assertions.assertEquals(registerPage.obtenerTituloRegistro(), "Crear cuenta");
+            registerPage.clickRegister();
+            Assertions.assertEquals(registerPage.getRegister(), "Crear cuenta");
             test.log(Status.PASS, "Ingreso a la página de Registro");
 
-            registerPage.escribirNombre("Sergio");
-            registerPage.escribirApellido("Pace");
-            registerPage.escribirMail("spaceprueba_1@gmail.com");
-            registerPage.escribirContraseña("123456");
-            registerPage.escribirConfirmarContraseña("123456");
-            test.log(Status.PASS, "Completo los datos de registro de forma correcta, con un mail usado");
+            registerPage.clicMyAccount();
+            registerPage.writeName("Maria Eugenia");
+            registerPage.writeLastName("Giraldo Herrera");
+            registerPage.writeMail("mariugiraldo40@gmail.com");
+            registerPage.writeTelephone("324567");
+            registerPage.writePassword("29M@yo");
+            registerPage.writePasswordConfirm("29M@yo");
+            registerPage.MarkSubscription("0");
+            registerPage.MarkprivacePolicy("1");
 
-            registerPage.clickRegistrarse();
+            registerPage.clickCheckIn();
             test.log(Status.PASS, "Completo el registro");
 
-            Assertions.assertEquals(registerPage.obtenerMensajeCorreoRepetido(), "Ese email ya se encuentra registrado");
+            Assertions.assertEquals(registerPage.repeatedEmailMessage(), "Este email ya está registrado");
             test.log(Status.PASS, "Valido no poder registrarme con un correo repetido");
 
-            registerPage.clickLogo();
-            test.log(Status.PASS, "Regreso a la página inicial");
         } catch (AssertionError error) {
             test.log(Status.FAIL, "Fallo la validación: " + error.getLocalizedMessage());
             throw error;
@@ -132,13 +104,13 @@ public class RegisterTest {
     }
 
     @AfterEach
-    public void cerrar() {
+    public void close() {
         RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.close();
     }
 
     @AfterAll
-    public static void reporte() {
+    public static void report() {
         extent.flush();
     }
 }
