@@ -9,6 +9,7 @@ public class BasePage {
 
     protected By registerAccount = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/ul/li[1]/a");
 
+
     public static WebDriver driver;
     public static WebDriverWait wait;
 
@@ -40,9 +41,9 @@ public class BasePage {
         this.elementFind(locator).sendKeys(inputText);
     }
 
-    /*protected void sendKey(CharSequence key, By locator) throws InterruptedException {
+    protected void sendKey(CharSequence key, By locator) throws InterruptedException {
         this.elementFind(locator).sendKeys(key);
-    }*/
+    }
     protected void click(By locator) throws InterruptedException {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         this.elementFind(locator).click();

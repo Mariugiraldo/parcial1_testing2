@@ -23,7 +23,7 @@ public class RegisterPage extends BasePage {
         super(driver, wait);
     }
 
-    public void clicMyAccount() throws InterruptedException {
+    public void clickMyAccount() throws InterruptedException {
         click(myAccountBtn);
     }
 

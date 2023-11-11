@@ -44,7 +44,7 @@ public class RegisterTest {
             Assertions.assertEquals(registerPage.getRegister(), "Crear cuenta");
             test.log(Status.PASS, "Cuenta registrada");
 
-            registerPage.clicMyAccount();
+            registerPage.clickMyAccount();
             registerPage.writeName("Maria Eugenia");
             registerPage.writeLastName("Giraldo Herrera");
             registerPage.writeMail("mariugiraldo40@gmail.com");
@@ -81,7 +81,7 @@ public class RegisterTest {
             Assertions.assertEquals(registerPage.getRegister(), "Crear cuenta");
             test.log(Status.PASS, "Ingreso a la página de Registro");
 
-            registerPage.clicMyAccount();
+            registerPage.clickMyAccount();
             registerPage.writeName("Maria Eugenia");
             registerPage.writeLastName("Giraldo Herrera");
             registerPage.writeMail("mariugiraldo40@gmail.com");
