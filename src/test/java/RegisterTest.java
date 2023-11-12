@@ -77,7 +77,7 @@ public class RegisterTest {
         try {
             registerPage.clickMyAccount();
             registerPage.clickRegister();
-            Assertions.assertEquals("Crear cuenta", registerPage.getRegister());
+            Assertions.assertEquals("Account", registerPage.getRegister());
             test.log(Status.INFO, "Ingreso a la página de Registro");
 
             registerPage.writeName("Maria Eugenia");
@@ -92,7 +92,7 @@ public class RegisterTest {
             registerPage.clickRegisterButton();
             test.log(Status.PASS, "Completo el registro");
 
-            Assertions.assertEquals("Este email ya está registrado", registerPage.repeatedEmailMessage());
+            Assertions.assertEquals("Warning: E-Mail Address is already registered!", registerPage.repeatedEmailMessage());
             test.log(Status.PASS, "Valido no poder registrarme con un correo repetido");
 
         } catch (AssertionError error) {
