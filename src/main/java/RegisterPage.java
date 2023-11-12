@@ -13,7 +13,7 @@ public class RegisterPage extends BasePage {
     private By password = By.id("input-password");
     private By passwordConfirm = By.id("input-confirm");
     private By subscriptionNoCheckbox = By.xpath("//*[@id=\"content\"]/form/fieldset[3]/div/div/label[2]/input");
-    private By privacePolicy = By.xpath("//*[@id=\"content\"]/form/div/div/input[1]");
+    private By privacyPolicy = By.xpath("//*[@id=\"content\"]/form/div/div/input[1]");
     private By registerButton = By.xpath("//*[@id=\"content\"]/form/div/div/input[2]");
     private By accountCreated = By.xpath("//*[@id=\"content\"]/h1");
     private By registerMessage = By.xpath("//*[@id=\"content\"]/p[1]");
@@ -24,62 +24,59 @@ public class RegisterPage extends BasePage {
         super(driver, wait);
     }
 
-    public void clickMyAccount() throws InterruptedException {
-            click(myAccountBtn);
+    public void clickMyAccount() {
+        click(myAccountBtn);
     }
 
-    public void clickRegister() throws InterruptedException {
+    public void clickRegister() {
         click(register);
     }
 
-    public void writeName(String name1) throws InterruptedException {
+    public void writeName(String name1) {
         sendText(name1, name);
     }
 
-    public void writeLastName(String lastName1) throws InterruptedException {
+    public void writeLastName(String lastName1) {
         sendText(lastName1, lastName);
     }
 
-    public void writeMail(String mail) throws InterruptedException {
+    public void writeMail(String mail) {
         sendText(mail, eMail);
     }
 
-    public void writeTelephone(String phone) throws InterruptedException {
+    public void writeTelephone(String phone) {
         sendText(phone, telephone);
     }
 
-    public void writePassword(String clue) throws InterruptedException {
-        sendText(clue, password);
+    public void writePassword(String password) {
+        sendText(password, this.password);
     }
 
-    public void writePasswordConfirm(String clau) throws InterruptedException {
-        sendText(clau, passwordConfirm);
+    public void writePasswordConfirm(String password) {
+        sendText(password, passwordConfirm);
     }
 
-    public void MarkSubscription() throws InterruptedException {
+    public void markSubscription() {
         click(subscriptionNoCheckbox);
     }
 
-    public void MarkprivacePolicy() throws InterruptedException {
-        click(privacePolicy);
+    public void markPrivacyPolicy() {
+        click(privacyPolicy);
     }
 
-    public void clickRegisterButton() throws InterruptedException {
+    public void clickRegisterButton() {
         click(registerButton);
     }
 
-    public String getRegister() throws InterruptedException {
-        System.out.println("La cuenta ha sido registrada: " + getText(accountCreated));
+    public String getRegister() {
         return this.getText(accountCreated);
     }
 
-    public String successfulMessage() throws InterruptedException {
-        System.out.println("Se creo la cuenta: " + getText(registerMessage));
+    public String successfulMessage() {
         return this.getText(registerMessage);
     }
 
-    public String repeatedEmailMessage() throws InterruptedException {
-        System.out.println("Verificar el mensaje de correo repetido: " + getText(repeatedEmail));
+    public String repeatedEmailMessage() {
         return this.getText(repeatedEmail);
     }
 

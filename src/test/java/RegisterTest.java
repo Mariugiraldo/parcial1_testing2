@@ -16,6 +16,8 @@ public class RegisterTest {
     static ExtentSparkReporter info = new ExtentSparkReporter("target/REPORTES/RegisterTest.html");
     static ExtentReports extent;
 
+    private RegisterPage registerPage;
+
     @BeforeAll
     public static void crearReporte() {
         extent = ExtentFactory.getInstance();
@@ -25,34 +27,32 @@ public class RegisterTest {
     @BeforeEach
     public void setUp() {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        RegisterPage registerPage = new RegisterPage(driver, wait);
-        registerPage.setUp();
-        registerPage.getUrl("https://opencart.abstracta.us/index.php?route=product/product&path=57&product_id=49");
+        wait = new WebDriverWait(driver, Duration.ofMillis(10));
+        registerPage = new RegisterPage(driver, wait);
+        registerPage.getHomeUrl();
     }
 
     @Test
     @Tag("Registro")
     @Tag("ALL")
     public void SuccessfulRegistrationTest() throws InterruptedException {
-        ExtentTest test = extent.createTest("Prueba de Crear Cuenta Exitosa");
-        test.log(Status.INFO, "Comienza el Test");
-        RegisterPage registerPage = new RegisterPage(driver, wait);
+        ExtentTest test = extent.createTest("Prueba de registro","Crear una nueva cuenta en el sistema de manera exitosa");
+        System.out.println("Comienza el Test");
 
         try {
             registerPage.clickMyAccount();
             registerPage.clickRegister();
             Assertions.assertEquals("Account", registerPage.getRegister());
-            test.log(Status.PASS, "Ingreso a pantalla de registro");
+            test.log(Status.INFO, "Ingreso a pantalla de registro");
 
-            registerPage.writeName("Maria Eugenia");
-            registerPage.writeLastName("Giraldo Herrera");
-            registerPage.writeMail("mariugiraldo"+Math.random()+"@gmail.com");
+            registerPage.writeName("Radamel");
+            registerPage.writeLastName("Falcao Garcia");
+            registerPage.writeMail("radagol-" + Math.random() + "@gmail.com");
             registerPage.writeTelephone("324567");
-            registerPage.writePassword("29M@yo");
-            registerPage.writePasswordConfirm("29M@yo");
-            registerPage.MarkSubscription();
-            registerPage.MarkprivacePolicy();
+            registerPage.writePassword("123456");
+            registerPage.writePasswordConfirm("123456");
+            registerPage.markSubscription();
+            registerPage.markPrivacyPolicy();
 
             registerPage.clickRegisterButton();
             test.log(Status.PASS, "registro culminado");
@@ -70,8 +70,8 @@ public class RegisterTest {
     @Tag("Registro")
     @Tag("ALL")
     public void repeatedEmailTest() throws InterruptedException {
-        ExtentTest test = extent.createTest("Prueba de Crear una cuenta con un mail repetido");
-        test.log(Status.PASS, "Comienza el Test");
+        ExtentTest test = extent.createTest("Prueba de email repetido","Crear una cuenta con un mail que ya se encuentra registrado previamente");
+        test.log(Status.INFO, "Comienza el Test");
         RegisterPage registerPage = new RegisterPage(driver, wait);
 
         try {
@@ -84,10 +84,10 @@ public class RegisterTest {
             registerPage.writeLastName("Giraldo Herrera");
             registerPage.writeMail("mariugiraldo40@gmail.com");
             registerPage.writeTelephone("324567");
-            registerPage.writePassword("29M@yo");
-            registerPage.writePasswordConfirm("29M@yo");
-            registerPage.MarkSubscription();
-            registerPage.MarkprivacePolicy();
+            registerPage.writePassword("12345");
+            registerPage.writePasswordConfirm("12345");
+            registerPage.markSubscription();
+            registerPage.markPrivacyPolicy();
 
             registerPage.clickRegisterButton();
             test.log(Status.PASS, "Completo el registro");
@@ -103,7 +103,6 @@ public class RegisterTest {
 
     @AfterEach
     public void close() {
-        RegisterPage registerPage = new RegisterPage(driver, wait);
         registerPage.close();
     }
 
