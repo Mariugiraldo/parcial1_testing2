@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
-    private static String HOME_URL = "https://opencart.abstracta.us/index.php?route=common/home";
+    private static String HOME_URL = "https://parabank.parasoft.com/parabank/index.htm";
 
     private WebDriver driver;
     private WebDriverWait wait;

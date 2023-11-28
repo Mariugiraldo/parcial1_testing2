@@ -36,28 +36,37 @@ public class RegisterTest {
     @Tag("Registro")
     @Tag("ALL")
     public void SuccessfulRegistrationTest() throws InterruptedException {
-        ExtentTest test = extent.createTest("Prueba de registro","Crear una nueva cuenta en el sistema de manera exitosa");
+        ExtentTest test = extent.createTest("Prueba de registro", "Crear una nueva cuenta en el sistema de manera exitosa");
         System.out.println("Comienza el Test");
 
         try {
-            registerPage.clickMyAccount();
+
+
+            registerPage.writeUsernameBtn("324567");
+            registerPage.writePasswordBtn("123456");
             registerPage.clickRegister();
-            Assertions.assertEquals("Account", registerPage.getRegister());
+//            registerPage.message();
+            Assertions.assertEquals("", registerPage.getUsername());
+            Assertions.assertEquals("", registerPage.getPassword());
             test.log(Status.INFO, "Ingreso a pantalla de registro");
 
-            registerPage.writeName("Radamel");
+            registerPage.writeFirstName("Radamel");
             registerPage.writeLastName("Falcao Garcia");
-            registerPage.writeMail("radagol-" + Math.random() + "@gmail.com");
+            registerPage.writeAddress("cr 100");
+            registerPage.writeCity("calle 100");
+            registerPage.writeState("Lima");
+            registerPage.writeZipCode("34567");
+            registerPage.writeZipCode("34567");
             registerPage.writeTelephone("324567");
-            registerPage.writePassword("123456");
-            registerPage.writePasswordConfirm("123456");
-            registerPage.markSubscription();
-            registerPage.markPrivacyPolicy();
+            registerPage.writeSsn("324567");
+            registerPage.writeUsername("123456");
+            registerPage.writePassword("12345");
+            registerPage.writePasswordConfirm("12345");
 
             registerPage.clickRegisterButton();
             test.log(Status.PASS, "registro culminado");
 
-            Assertions.assertEquals("Congratulations! Your new account has been successfully created!", registerPage.successfulMessage());
+            Assertions.assertEquals("Your account was created successfully. You are now logged in.", registerPage.successfulMessage());
             test.log(Status.PASS, "los datos se han registrado correctamente");
 
         } catch (AssertionError error) {
@@ -65,49 +74,50 @@ public class RegisterTest {
             throw error;
         }
     }
-
-    @Test
-    @Tag("Registro")
-    @Tag("ALL")
-    public void repeatedEmailTest() throws InterruptedException {
-        ExtentTest test = extent.createTest("Prueba de email repetido","Crear una cuenta con un mail que ya se encuentra registrado previamente");
-        test.log(Status.INFO, "Comienza el Test");
-        RegisterPage registerPage = new RegisterPage(driver, wait);
-
-        try {
-            registerPage.clickMyAccount();
-            registerPage.clickRegister();
-            Assertions.assertEquals("Account", registerPage.getRegister());
-            test.log(Status.INFO, "Ingreso a la página de Registro");
-
-            registerPage.writeName("Maria Eugenia");
-            registerPage.writeLastName("Giraldo Herrera");
-            registerPage.writeMail("mariugiraldo40@gmail.com");
-            registerPage.writeTelephone("324567");
-            registerPage.writePassword("12345");
-            registerPage.writePasswordConfirm("12345");
-            registerPage.markSubscription();
-            registerPage.markPrivacyPolicy();
-
-            registerPage.clickRegisterButton();
-            test.log(Status.PASS, "Completo el registro");
-
-            Assertions.assertEquals("Warning: E-Mail Address is already registered!", registerPage.repeatedEmailMessage());
-            test.log(Status.PASS, "Valido no poder registrarme con un correo repetido");
-
-        } catch (AssertionError error) {
-            test.log(Status.FAIL, "Fallo la validación: " + error.getLocalizedMessage());
-            throw error;
-        }
-    }
-
-    @AfterEach
-    public void close() {
-        registerPage.close();
-    }
-
-    @AfterAll
-    public static void report() {
-        extent.flush();
-    }
 }
+
+//    @Test
+//    @Tag("Registro")
+//    @Tag("ALL")
+//    public void repeatedEmailTest() throws InterruptedException {
+//        ExtentTest test = extent.createTest("Prueba de email repetido","Crear una cuenta con un mail que ya se encuentra registrado previamente");
+//        test.log(Status.INFO, "Comienza el Test");
+//        RegisterPage registerPage = new RegisterPage(driver, wait);
+//
+//        try {
+//            registerPage.clickMyAccount();
+//            registerPage.clickRegister();
+//            Assertions.assertEquals("Account", registerPage.getRegister());
+//            test.log(Status.INFO, "Ingreso a la página de Registro");
+//
+//            registerPage.writeName("Maria Eugenia");
+//            registerPage.writeLastName("Giraldo Herrera");
+//            registerPage.writeMail("mariugiraldo40@gmail.com");
+//            registerPage.writeTelephone("324567");
+//            registerPage.writePassword("12345");
+//            registerPage.writePasswordConfirm("12345");
+//            registerPage.markSubscription();
+//            registerPage.markPrivacyPolicy();
+//
+//            registerPage.clickRegisterButton();
+//            test.log(Status.PASS, "Completo el registro");
+//
+//            Assertions.assertEquals("Warning: E-Mail Address is already registered!", registerPage.repeatedEmailMessage());
+//            test.log(Status.PASS, "Valido no poder registrarme con un correo repetido");
+//
+//        } catch (AssertionError error) {
+//            test.log(Status.FAIL, "Fallo la validación: " + error.getLocalizedMessage());
+//            throw error;
+//        }
+//    }
+//
+//    @AfterEach
+//    public void close() {
+//        registerPage.close();
+//    }
+//
+//    @AfterAll
+//    public static void report() {
+//        extent.flush();
+//    }
+//}

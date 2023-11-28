@@ -4,81 +4,112 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegisterPage extends BasePage {
 
-    private By myAccountBtn = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/a");
-    private By register = By.xpath("//*[@id=\"top-links\"]/ul/li[2]/ul/li[1]/a");
-    private By name = By.id("input-firstname");
-    private By lastName = By.id("input-lastname");
-    private By eMail = By.id("input-email");
-    private By telephone = By.id("input-telephone");
-    private By password = By.id("input-password");
-    private By passwordConfirm = By.id("input-confirm");
-    private By subscriptionNoCheckbox = By.xpath("//*[@id=\"content\"]/form/fieldset[3]/div/div/label[2]/input");
-    private By privacyPolicy = By.xpath("//*[@id=\"content\"]/form/div/div/input[1]");
-    private By registerButton = By.xpath("//*[@id=\"content\"]/form/div/div/input[2]");
-    private By accountCreated = By.xpath("//*[@id=\"content\"]/h1");
-    private By registerMessage = By.xpath("//*[@id=\"content\"]/p[1]");
-    private By repeatedEmail = By.xpath("//*[@id=\"account-register\"]/div[1]");
+
+    private By usernameBtn = By.xpath("//*[@id=\"loginPanel\"]/form/div[1]/input");
+    private By passwordBtn = By.xpath("//*[@id=\"loginPanel\"]/form/div[2]/input");
+    private By register = By.xpath("//*[@id=\"loginPanel\"]/p[2]/a");
+
+//   private By messageSesion = By.xpath("//*[@id=\"rightPanel\"]/h1");
+    private By firstName = By.xpath("//*[@id=\"customer.firstName\"]");
+    private By lastName = By.id("customer.lastName");
+    private By address = By.xpath("//*[@id=\"customer.address.street\"]");
+    private By city = By.id("customer.address.city");
+    private By state = By.id("customer.address.state");
+    private By zipCode = By.id("customer.address.zipCode");
+    private By phone = By.id("customer.phoneNumber");
+    private By ssn = By.xpath("//*[@id=\"customer.ssn\"]");
+    private By username = By.xpath("//*[@id=\"customer.username\"]");
+    private By password = By.xpath("//*[@id=\"customer.password\"]");
+    private By passwordConfirm = By.xpath("//*[@id=\"repeatedPassword\"]");
+    private By registerButton = By.xpath("//*[@id=\"customerForm\"]/table/tbody/tr[13]/td[2]/input");
+    private By createRegister = By.xpath("//*[@id=\"rightPanel\"]/h1");
+    private By registerMessage = By.xpath("//*[@id=\"rightPanel\"]/p");
+
 
 
     public RegisterPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 
-    public void clickMyAccount() {
-        click(myAccountBtn);
+    public void writeUsernameBtn(String userNameBtn1) {
+        sendText(userNameBtn1, usernameBtn);
+    }
+
+    public void writePasswordBtn(String passwordBtn1) {
+        sendText(passwordBtn1, passwordBtn);
     }
 
     public void clickRegister() {
         click(register);
     }
 
-    public void writeName(String name1) {
-        sendText(name1, name);
+//    public String message () {
+//        return this.getText(messageSesion);
+//    }
+
+    public void writeFirstName(String name1) {
+        sendText(name1, firstName);
     }
 
     public void writeLastName(String lastName1) {
         sendText(lastName1, lastName);
     }
 
-    public void writeMail(String mail) {
-        sendText(mail, eMail);
+    public void writeAddress(String address1) {
+        sendText(address1, address);
     }
 
-    public void writeTelephone(String phone) {
-        sendText(phone, telephone);
+    public void writeCity(String city1) {
+        sendText(city1, city);
     }
 
-    public void writePassword(String password) {
-        sendText(password, this.password);
+    public void writeState(String state1) {
+        sendText(state1, state);
     }
+
+    public void writeZipCode(String zipCode1) {
+        sendText(zipCode1, zipCode);
+    }
+
+    public void writeTelephone(String phone1) {
+        sendText(phone1, phone);
+    }
+
+    public void writeSsn(String ssn1) {
+        sendText(ssn1, ssn);
+    }
+
+   public void writeUsername(String username1) {
+      sendText(username1, username);
+  }
+  public void writePassword(String password) {
+     sendText(password, this.password);
+ }
 
     public void writePasswordConfirm(String password) {
         sendText(password, passwordConfirm);
-    }
-
-    public void markSubscription() {
-        click(subscriptionNoCheckbox);
-    }
-
-    public void markPrivacyPolicy() {
-        click(privacyPolicy);
     }
 
     public void clickRegisterButton() {
         click(registerButton);
     }
 
-    public String getRegister() {
-        return this.getText(accountCreated);
-    }
-
     public String successfulMessage() {
         return this.getText(registerMessage);
     }
 
-    public String repeatedEmailMessage() {
-        return this.getText(repeatedEmail);
+    public String getRegister() {
+        return this.getText(createRegister);
+
     }
 
+    public String getUsername() {
+        return this.getText(usernameBtn);
+    }
+
+    public String getPassword() {
+        return this.getText(passwordBtn );
+
+    }
 
 }
