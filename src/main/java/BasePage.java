@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -10,7 +11,6 @@ public class BasePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
-
 
     public BasePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -30,31 +30,20 @@ public class BasePage {
         driver.quit();
     }
 
-    protected WebElement elementFind(By locator) {
-        return driver.findElement(locator);
-    }
-
     protected void sendText(String inputText, By locator) {
-        this.elementFind(locator).clear();
-        this.elementFind(locator).sendKeys(inputText);
-    }
-
-    protected void sendKey(CharSequence key, By locator) {
-        this.elementFind(locator).sendKeys(key);
+        var element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        element.sendKeys(inputText);
     }
 
     protected void click(By locator) {
-        this.elementFind(locator).click();
+        var element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        element.click();
     }
 
     protected String getText(By locator) {
-        return this.elementFind(locator).getText();
+        var element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        return element.getText();
     }
-
-    protected WebDriverWait getWait(){
-        return this.wait;
-    }
-
 }
 
 

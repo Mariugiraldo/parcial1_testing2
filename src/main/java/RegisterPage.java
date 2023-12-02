@@ -1,3 +1,4 @@
+import helpers.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -7,9 +8,7 @@ public class RegisterPage extends BasePage {
 
     private By usernameBtn = By.xpath("//*[@id=\"loginPanel\"]/form/div[1]/input");
     private By passwordBtn = By.xpath("//*[@id=\"loginPanel\"]/form/div[2]/input");
-    private By register = By.xpath("//*[@id=\"loginPanel\"]/p[2]/a");
-
-//   private By messageSesion = By.xpath("//*[@id=\"rightPanel\"]/h1");
+    private By registerLink = By.xpath("//*[@id=\"loginPanel\"]/p[2]/a");
     private By firstName = By.xpath("//*[@id=\"customer.firstName\"]");
     private By lastName = By.id("customer.lastName");
     private By address = By.xpath("//*[@id=\"customer.address.street\"]");
@@ -26,26 +25,13 @@ public class RegisterPage extends BasePage {
     private By registerMessage = By.xpath("//*[@id=\"rightPanel\"]/p");
 
 
-
     public RegisterPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 
-    public void writeUsernameBtn(String userNameBtn1) {
-        sendText(userNameBtn1, usernameBtn);
+    public void clickRegisterLink() {
+        click(registerLink);
     }
-
-    public void writePasswordBtn(String passwordBtn1) {
-        sendText(passwordBtn1, passwordBtn);
-    }
-
-    public void clickRegister() {
-        click(register);
-    }
-
-//    public String message () {
-//        return this.getText(messageSesion);
-//    }
 
     public void writeFirstName(String name1) {
         sendText(name1, firstName);
@@ -79,12 +65,13 @@ public class RegisterPage extends BasePage {
         sendText(ssn1, ssn);
     }
 
-   public void writeUsername(String username1) {
-      sendText(username1, username);
-  }
-  public void writePassword(String password) {
-     sendText(password, this.password);
- }
+    public void writeUsername(String username1) {
+        sendText(username1, username);
+    }
+
+    public void writePassword(String password) {
+        sendText(password, this.password);
+    }
 
     public void writePasswordConfirm(String password) {
         sendText(password, passwordConfirm);
@@ -98,18 +85,20 @@ public class RegisterPage extends BasePage {
         return this.getText(registerMessage);
     }
 
-    public String getRegister() {
-        return this.getText(createRegister);
-
-    }
-
-    public String getUsername() {
-        return this.getText(usernameBtn);
-    }
-
-    public String getPassword() {
-        return this.getText(passwordBtn );
-
+    public void registerUser(User user) {
+        clickRegisterLink();
+        writeFirstName(user.getFirstName());
+        writeLastName(user.getLastName());
+        writeAddress(user.getAddress());
+        writeCity(user.getCity());
+        writeState(user.getState());
+        writeZipCode(user.getZipCode());
+        writeTelephone(user.getTelephone());
+        writeSsn(user.getSsn());
+        writeUsername(user.getUsername());
+        writePassword(user.getPassword());
+        writePasswordConfirm(user.getPassword());
+        clickRegisterButton();
     }
 
 }
