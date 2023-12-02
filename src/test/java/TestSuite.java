@@ -25,8 +25,9 @@ public class TestSuite {
     private RegisterPage registerPage;
     private AccountPage accountPage;
     private SummaryPage summaryPage;
-
     private TransferPage transferPage;
+
+    private ActivityPage activityPage;
 
 
     @BeforeAll
@@ -45,7 +46,7 @@ public class TestSuite {
         accountPage = new AccountPage(driver, wait);
         summaryPage = new SummaryPage(driver, wait);
         transferPage = new TransferPage(driver, wait);
-
+        activityPage = new ActivityPage(driver, wait);
 
     }
 
@@ -115,12 +116,38 @@ public class TestSuite {
         test.log(Status.PASS, "El resumen de la cuenta esta correcto");
 
     }
+
+    @Test
+    @Tag("activity")
+    @Tag("ALL")
+    @DisplayName("5. successful activity account test")
+    public void SuccessfulRegistrationActivityAccount_Test() {
+        ExtentTest test = extent.createTest("Prueba de actividad de la cuenta", "cuenta exitosa");
+        System.out.println("Comienza el Test");
+
+        accountPage.login(user.getUsername(), user.getPassword());
+        activityPage.accountSummaryLink();
+        test.log(Status.INFO, "Ingreso a pantalla de actividad de cuenta");
+
+        Assertions.assertEquals("*Balance includes deposits that may be subject to holds", activityPage.getMessageSuccessfulDeposits());
+        test.log(Status.PASS, "El resumen de la cuenta esta correcto");
+
+        activityPage.selectColumnAccount();
+        Assertions.assertEquals("Account Details", activityPage.getMessageSuccessfulDetailsAccount());
+        test.log(Status.PASS, "El mensaje esta correcto");
+
+        activityPage.activityPeriodMonthLink();
+        activityPage.activityTypeAccountLink();
+        activityPage.clickButtonGo();
+
+    }
     @AfterEach
     public void close() {
         registerPage.close();
         accountPage.close();
         summaryPage.close();
         transferPage.close();
+        activityPage.close();
     }
 
     @AfterAll
