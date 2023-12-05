@@ -1,23 +1,25 @@
 package BackTest;
 
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+
 
 public class PostDownloadBackgrounds {
 
     @Test
     public void dowloandBackground_Test() {
-        //given
-        String fromAccountId = "24777";
-        String toAccountId = "26553";
-        String amount = "800";
 
-        String uri = String.format("http://parabank.parasoft.com/parabank/services/bank/transfer/fromAccountId=%s&toAccountId=%s&amount=%shttp://parabank.parasoft.com/parabank/services/bank/transfer?fromAccountId=%s&toAccountId=%s&amount=%s", fromAccountId, toAccountId, amount);
+        given().
+                queryParam("fromAccountId", "18006").
+                queryParam("amount", "200").
+                queryParam("toAccountId", "17673").
 
-        RestAssured.when()
-                .post(uri)
-                .then()
-                .log().all()
-                .statusCode(200);
+                when().
+                get("http://parabank.parasoft.com/parabank/services/bank/transfer/fromAccountId=%s&toAccountId=%s&amount=%shttp://parabank.parasoft.com/parabank/services/bank/transfer?fromAccountId=%s&toAccountId=%s&amount=%s").
+                then().
+                assertThat().
+                statusCode(200);
     }
 }
+
