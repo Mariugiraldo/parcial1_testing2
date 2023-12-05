@@ -1,14 +1,12 @@
 package BackTest;
 
-import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 
-
 public class PostAccountTest {
     @Test
-    public void OpenAccountTest() {
+    public void openAccountTest() {
         //given
         String customerId = "17540";
         String accountType = "1";
@@ -21,7 +19,6 @@ public class PostAccountTest {
         .then()
                 .log().all()
                 .statusCode(200);
-
     }
 }
 

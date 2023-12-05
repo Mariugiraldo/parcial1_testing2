@@ -10,11 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 
 @TestMethodOrder(MethodOrderer.DisplayName.class)
-public class TestSuite {
+public class TestSuiteFront {
     private WebDriver driver;
     private WebDriverWait wait;
     static ExtentSparkReporter info = new ExtentSparkReporter("target/REPORTES/RegisterTest.html");
